@@ -1,95 +1,104 @@
 ﻿<!DOCTYPE html>
 <html ng-app="App" ng-controller="AppController">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
+<head>
     <title>IAsset test Page</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+
     <script type="text/javascript" src="/Scripts/angular.js"></script>
     <script type="text/javascript" src="/Scripts/angular-animate.js"></script>
     <script type="text/javascript" src="/Scripts/angular-sanitize.js"></script>
     <script type="text/javascript" src="/Scripts/angular-ui/ui-bootstrap.js"></script>
     <script type="text/javascript" src="/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
-
     <script type="text/javascript" src="Areas/Typescript/app.js"></script>
     <script src="Areas/Typescript/service.js"></script>
 
-  </head>
-  <body class="container">
+</head>
+<body class="container">
     <div ng-show="IsAjax()" class="spinner"></div>
 
-    <div class="fill-height ">
-        <div class="app-level-container">
-            <div class="container fill-height" ng-hide="model.IsLoaded">
-                <br /><br />
-                <div class="alert alert-info">
-                    <div ui-view class="fill-height">Getting results from the server...</div>
-                </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Select country and city</div>
+        <div class="container fill-height" ng-hide="model.isLoaded">
+            <br /><br />
+            <div class="alert alert-info">
+                <div ui-view class="fill-height">Getting results from the server...</div>
             </div>
+        </div>
 
-            <div class="form-horizontal" ng-show="model.Success">
+        <div class="panel-body" ng-show="model.isLoaded">
+            <div class="form">
                 <div class="form-group">
-                    <label class="col-xs-3">Enter country</label>
+                    <label>Enter country</label>
                     <input type="text" class="form-control" ng-model="model.country" placeholder="Country"
-                           uib-typeahead="c for c in model.countries | filter:$viewValue | limitTo:8"
-                           />
+                           uib-typeahead="c for c in model.countries | filter:$viewValue | limitTo:8" />
+                    <br />
                     <button type="button" class="btn btn-primary" ng-click="GetCities()">Get Cities</button>
+                    <br />
                 </div>
                 <div class="form-group" ng-show="model.cities.length != 0">
-                    <label class="col-xs-3">Select City</label>
+                    <label>Select City</label>
                     <input type="text" class="form-control" ng-model="model.city" ng-change="GetDetails()" placeholder="City"
-                           uib-typeahead="city for city in model.cities | filter:$viewValue | limitTo:8"
-                           />
+                           uib-typeahead="city for city in model.cities | filter:$viewValue | limitTo:8" />
+                    <br />
                     <button type="button" class="btn btn-primary" ng-click="GetWeather()">Details</button>
-                </div>
-                <div ng-show="model.weather">
-                    <div class="row" >
-                        <label class="col-xs-3">Location</label>
-                        <div class="col-xs-8">{{model.weather.location}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Time</label>
-                        <div class="col-xs-8">{{model.weather.time}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Wind</label>
-                        <div class="col-xs-8">{{model.weather.wind}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Visibility</label>
-                        <div class="col-xs-8">{{model.weather.visibility}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Sky conditions</label>
-                        <div class="col-xs-8">{{model.weather.skyConditions}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Temperature</label>
-                        <div class="col-xs-8">{{model.weather.temperature}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Dew point</label>
-                        <div class="col-xs-8">{{model.weather.dewPoint}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Relative Humidity</label>
-                        <div class="col-xs-8">{{model.weather.relativeHumidity}}</div>
-                    </div>
-                    <div class="row">
-                        <label class="col-xs-3">Pressure</label>
-                        <div class="col-xs-8">{{model.weather.pressure}}</div>
-                    </div>
-            </div>
-            <div>
-                <br />
-
-                <div class="list-group" ng-show="model.Errors.length != 0">
-                    <div class="row list-group-item" ng-repeat="info in model.Errors">
-                        <div class="col-sm-1">*</div>
-                        <div class="col-sm-10">{{info}}</div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </body>
+
+    <div class="panel panel-info" ng-show="model.weather">
+        <div class="panel-heading">Weather Information</div>
+        <div class="panel-body">
+            <div class="row">
+                <label class="col-xs-3">Location</label>
+                <div class="col-xs-8">{{model.weather.location}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Time</label>
+                <div class="col-xs-8">{{model.weather.time}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Wind</label>
+                <div class="col-xs-8">{{model.weather.wind}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Visibility</label>
+                <div class="col-xs-8">{{model.weather.visibility}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Sky conditions</label>
+                <div class="col-xs-8">{{model.weather.skyConditions}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Temperature</label>
+                <div class="col-xs-8">{{model.weather.temperature}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Dew point</label>
+                <div class="col-xs-8">{{model.weather.dewPoint}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Relative Humidity</label>
+                <div class="col-xs-8">{{model.weather.relativeHumidity}}</div>
+            </div>
+            <div class="row">
+                <label class="col-xs-3">Pressure</label>
+                <div class="col-xs-8">{{model.weather.pressure}}</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="panel panel-danger" ng-show="model.errors.length != 0">
+        <div class="panel-heading">Errors have occurred, see text</div>
+        <div class="list-group">
+            <div class="row list-group-item" ng-repeat="info in model.errors">
+                <div class="col-sm-1">*</div>
+                <div class="col-sm-10">{{info}}</div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
