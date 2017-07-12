@@ -1,1 +1,7 @@
 .vs/
+IAssetTechnical.Tests/bin/
+IAssetTechnical.Tests/obj/
+IAssetTechnical/bin/ApplicationInsights.config
+IAssetTechnical/bin/
+IAssetTechnical/obj/
+packages/
