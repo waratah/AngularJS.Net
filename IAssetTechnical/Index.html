@@ -2,7 +2,9 @@
 <html ng-app="App" ng-controller="AppController">
 <head>
     <title>IAsset test Page</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/Site.css" rel="stylesheet" />
@@ -19,6 +21,8 @@
 <body class="container">
     <div ng-show="IsAjax()" class="spinner"></div>
 
+    <h1>IAsset Technical Test</h1>
+
     <div class="panel panel-default">
         <div class="panel-heading">Select country and city</div>
         <div class="container fill-height" ng-hide="model.isLoaded">
@@ -31,7 +35,7 @@
         <div class="panel-body" ng-show="model.isLoaded">
             <div class="form">
                 <div class="form-group">
-                    <label>Enter country</label>
+                    <label>Select country</label>
                     <input type="text" class="form-control" ng-model="model.country" placeholder="Country"
                            uib-typeahead="c for c in model.countries | filter:$viewValue | limitTo:8" />
                     <br />
@@ -93,8 +97,8 @@
     <br />
     <div class="panel panel-danger" ng-show="model.errors.length != 0">
         <div class="panel-heading">Errors have occurred, see text</div>
-        <div class="list-group">
-            <div class="row list-group-item" ng-repeat="info in model.errors">
+        <div class="panel-body">
+            <div class="row" ng-repeat="info in model.errors">
                 <div class="col-sm-1">*</div>
                 <div class="col-sm-10">{{info}}</div>
             </div>

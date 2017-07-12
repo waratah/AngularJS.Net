@@ -1,13 +1,13 @@
 angular.module('App', ['ngSanitize', 'ngAnimate', 'ui.bootstrap']).
     controller('AppController', function ($scope, $http, dataService) {
     $scope.IsAjax = function () {
-        console.log($scope.model.isAjaxBusy);
         return $scope.model.isAjaxBusy != 0;
     };
     $scope.IsLoaded = function () {
         return $scope.model.isLoaded;
     };
     $scope.GetCities = function () {
+        $scope.model.errors = [];
         $scope.model.cities = [];
         if (!$scope.model.country) {
             $scope.model.errors = ["Please enter a country name"];
@@ -19,13 +19,13 @@ angular.module('App', ['ngSanitize', 'ngAnimate', 'ui.bootstrap']).
             .then(function (data) {
             $scope.model.cities = data.data;
             $scope.model.isAjaxBusy -= 1;
-            $scope.model.errors = [];
         }).catch(function (reason) {
             $scope.model.errors = [reason];
             $scope.model.isAjaxBusy -= 1;
         });
     };
     $scope.GetWeather = function () {
+        $scope.model.errors = [];
         $scope.model.weather = null;
         if (!$scope.model.country) {
             $scope.model.cities = [];
@@ -41,9 +41,7 @@ angular.module('App', ['ngSanitize', 'ngAnimate', 'ui.bootstrap']).
         svc
             .then(function (data) {
             $scope.model.weather = data.data;
-            console.log(data);
             $scope.model.isAjaxBusy -= 1;
-            $scope.model.errors = [];
         }).catch(function (reason) {
             $scope.model.errors = [reason];
             $scope.model.isAjaxBusy -= 1;
@@ -60,13 +58,13 @@ angular.module('App', ['ngSanitize', 'ngAnimate', 'ui.bootstrap']).
         countries: []
     };
     function GetCountries() {
+        $scope.model.errors = [];
         $scope.model.isAjaxBusy += 1;
         var svc = dataService.GetCountries();
         svc
             .then(function (data) {
             $scope.model.success = true;
             $scope.model.countries = data.data;
-            $scope.model.errors = [];
             $scope.model.isLoaded = true;
             $scope.model.isAjaxBusy -= 1;
         }).catch(function (reason) {
